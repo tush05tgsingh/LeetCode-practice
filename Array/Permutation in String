@@ -1,0 +1,63 @@
+class Solution(object):
+    def count(self, s1, s2):
+        if len(s1)!=len(s2):
+            return False
+        c = {i:0 for i in s1}
+        
+        for i in range(len(s1)):
+            if s2[i] not in c:
+                return False
+            c[s1[i]] +=1
+            c[s2[i]] -=1
+
+        for i, v in c.items():
+            if v!=0:
+                return False
+        return True
+
+    def checkInclusion(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        """
+        slide = len(s1)
+        for i in range(len(s2)):
+            if s2[i] in s1:
+                temp = s2[i:i+slide]
+                if self.count(s1,temp):
+                    return(True)
+        return(False)
+       
+#Time Complexity : O(l1*l2 + l1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                        
