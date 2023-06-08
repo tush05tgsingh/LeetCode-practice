@@ -1,0 +1,38 @@
+class Solution(object):
+    def bin(self,n,num) :
+        if n > 1:
+            num = self.bin(n//2,num)
+        num+=str(n%2)
+        return num
+
+    def minFlips(self, a, b, c):
+        """
+        :type a: int
+        :type b: int
+        :type c: int
+        :rtype: int
+        """
+        bits_a = self.bin(a,"")
+        bits_b = self.bin(b,"")
+        bits_c = self.bin(c,"")
+        max_len = max(len(bits_c), len(bits_a), len(bits_b))
+        bits_a = abs(max_len-len(bits_a))*"0"+bits_a
+        bits_b = abs(max_len-len(bits_b))*"0"+bits_b
+        bits_c = abs(max_len-len(bits_c))*"0"+bits_c
+        flip, i, j, k = 0, len(bits_a)-1, len(bits_b)-1, len(bits_c)-1
+       
+        while k>=0:
+            #print( int(bits_a[i]) , int(bits_b[j]), int(bits_a[i]) or int(bits_b[j]), int(bits_c[k]))
+            if (int(bits_a[i]) or int(bits_b[j])) != int(bits_c[k]):
+                if int(bits_c[k]) == 1:
+                    flip+=1
+                elif int(bits_c[k]) == 0:
+                    if int(bits_a[i]) == int(bits_b[j]):
+                        flip+=2
+                        print("2")
+                    else:
+                        flip+=1
+            i-=1
+            j-=1
+            k-=1
+        return flip
